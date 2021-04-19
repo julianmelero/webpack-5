@@ -45,6 +45,10 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
         test: /\.css|.styl$/i,
         use: [miniCssExtractPlugin.loader, "css-loader", "stylus-loader"],
       },
+      {
+        test: /\.png/,
+        type: "asset/resource",
+      },
     ],
   },
   plugins: [
@@ -58,7 +62,7 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
       patterns: [
         {
           from: path.resolve(__dirname, "src", "assets/images"),
-          to: "assets/images"
+          to: "assets/images",
         },
       ],
     }),

@@ -6,6 +6,7 @@ const miniCssExtractPlugin = require("mini-css-extract-plugin");
 const copyPlugin = require("copy-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const dotEnv = require("dotenv-webpack");
 
 // Exportamos las configuraciones
 
@@ -98,6 +99,7 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
         },
       ],
     }),
+    new dotEnv(),
   ],
   // Desde webpack 5 ya está incluido Terser
   optimization: {

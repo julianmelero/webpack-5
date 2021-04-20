@@ -22,6 +22,15 @@ module.exports = {
   },
   resolve: {
     extensions: [".js"],
+    alias: {
+      // Los ALIAS son nombres que le damos a los path, para evitar poner ../../
+      // Usamos @ para decir que es un Alias
+      "@utils": path.resolve(__dirname, "src/utils/"),
+      "@templates": path.resolve(__dirname, "src/templates/"),
+      "@styles": path.resolve(__dirname, "src/styles/"),
+      "@images": path.resolve(__dirname, "src/assets/images/"),
+      "@fonts": path.resolve(__dirname, "src/assets/fonts/"),
+    },
   },
   optimization: {
     minimize: true,
@@ -65,7 +74,7 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
             mimetype: "application/font-woff",
             name: "[name].[contenthash].[ext]",
             outputPath: "./assets/fonts/",
-            publicPath: "./assets/fonts/",
+            publicPath: "../assets/fonts/",
             esModule: false,
           },
         },
@@ -79,7 +88,7 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
       filename: "./index.html",
     }),
     new miniCssExtractPlugin({
-      filename: 'assets/[name][contenthash].css'
+      filename: "assets/[name][contenthash].css",
     }),
     new copyPlugin({
       patterns: [

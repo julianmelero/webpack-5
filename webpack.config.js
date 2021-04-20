@@ -4,6 +4,8 @@ const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 const copyPlugin = require("copy-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 // Exportamos las configuraciones
 
@@ -14,11 +16,15 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "main.js",
+    // Con cada versión le damos un hash a los archivos
+    filename: "[name][contenthash].js",
     assetModuleFilename: "assets/images/[hash][ext][query]",
   },
   resolve: {
     extensions: [".js"],
+  },
+  optimization: {
+    minimize: true,
   },
   /*
 Loaders
@@ -57,7 +63,7 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
           options: {
             limit: 10000,
             mimetype: "application/font-woff",
-            name: "[name].[ext]",
+            name: "[name].[contenthash].[ext]",
             outputPath: "./assets/fonts/",
             publicPath: "./assets/fonts/",
             esModule: false,
@@ -72,7 +78,9 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
       template: "./public/index.html",
       filename: "./index.html",
     }),
-    new miniCssExtractPlugin(),
+    new miniCssExtractPlugin({
+      filename: 'assets/[name][contenthash].css'
+    }),
     new copyPlugin({
       patterns: [
         {
@@ -82,4 +90,10 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
       ],
     }),
   ],
+  // Desde webpack 5 ya está incluido Terser
+  optimization: {
+    minimize: true,
+    // Terser es para minimizar JS
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
+  },
 };

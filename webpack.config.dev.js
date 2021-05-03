@@ -5,7 +5,7 @@ const htmlWebpackPlugin = require("html-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 const copyPlugin = require("copy-webpack-plugin");
 const dotEnv = require("dotenv-webpack");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer');
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 // Exportamos las configuraciones
 
@@ -20,7 +20,8 @@ module.exports = {
     filename: "[name][contenthash].js",
     assetModuleFilename: "assets/images/[hash][ext][query]",
   },
-  mode: "development",  
+  mode: "development",
+  devtool: "source-map",
   resolve: {
     extensions: [".js"],
     alias: {
@@ -100,7 +101,7 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
     /*, si utilizas la consola de editor de código(poweshell) y al ejecutar comando del bundle analyzer te sale un error. Usa este comando primero:
 
 npx webpack --profile --json | Out-file 'stats.json' -Encoding OEM*/
-    new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin(),
   ],
   /* DEV SERVER */
   devServer: {

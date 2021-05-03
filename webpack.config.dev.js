@@ -5,6 +5,7 @@ const htmlWebpackPlugin = require("html-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 const copyPlugin = require("copy-webpack-plugin");
 const dotEnv = require("dotenv-webpack");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer');
 
 // Exportamos las configuraciones
 
@@ -96,6 +97,10 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
       ],
     }),
     new dotEnv(),
+    /*, si utilizas la consola de editor de código(poweshell) y al ejecutar comando del bundle analyzer te sale un error. Usa este comando primero:
+
+npx webpack --profile --json | Out-file 'stats.json' -Encoding OEM*/
+    new BundleAnalyzerPlugin()
   ],
   /* DEV SERVER */
   devServer: {

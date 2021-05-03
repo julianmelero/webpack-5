@@ -20,7 +20,6 @@ module.exports = {
     assetModuleFilename: "assets/images/[hash][ext][query]",
   },
   mode: "development",  
-  watch: true,
   resolve: {
     extensions: [".js"],
     alias: {
@@ -98,4 +97,11 @@ Una vez importado el plugin, podemos desear el personalizarlos a través de opci
     }),
     new dotEnv(),
   ],
+  /* DEV SERVER */
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    historyApiFallback: true,
+    port: 3006,
+  },
 };
